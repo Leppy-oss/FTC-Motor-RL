@@ -1,4 +1,8 @@
+# Temporary gitignores
+*.png
+
 # Development environment files
+*.python-version
 *.DS_Store
 .vscode/*
 !.vscode/settings.json

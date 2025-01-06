@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<robot name="5203-2402-0005">
+
+<material name="silver">
+  <color rgba="0.700 0.700 0.700 1.000"/>
+</material>
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.0006285495232041037 -0.0020320366598283804 0.0012995650279359653" rpy="0 0 0"/>
+    <mass value="0.34708778058748724"/>
+    <inertia ixx="0.0005115524009004725" iyy="6.717502941786604e-05" izz="0.0005143821605451313" ixy="7.651680755614496e-06" iyz="-7.1133923929399905e-06" ixz="-1.143748267942524e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="Shaft2">
+  <inertial>
+    <origin xyz="8.035990564232947e-08 -0.00312281513845606 -3.0815087700010024e-07" rpy="0 0 0"/>
+    <mass value="0.014792499965916969"/>
+    <inertia ixx="2.0058487310013444e-06" iyy="1.2945568155620683e-07" izz="2.0058477706663902e-06" ixy="-1.6165471251949686e-12" iyz="3.201802309678423e-11" ixz="-1.0210832053810346e-13"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.000198 0.053035 -0.000922" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/Shaft2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0.000198 0.053035 -0.000922" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/Shaft2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="Bearing3">
+  <inertial>
+    <origin xyz="4.126307022824828e-08 0.002300379724565947 -4.2914723762002387e-07" rpy="0 0 0"/>
+    <mass value="0.005212854927036006"/>
+    <inertia ixx="1.2768501644321287e-07" iyy="2.3887516326697066e-07" izz="1.276850164432061e-07" ixy="-1.1845226371759356e-21" iyz="5.293955920339377e-23" ixz="9.202384314652433e-23"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.000198 0.052835 -0.000922" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/Bearing3.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0.000198 0.052835 -0.000922" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/Bearing3.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Shaft_Joint" type="continuous">
+  <origin xyz="0.0 -0.0002 0.0" rpy="0 0 0"/>
+  <parent link="Bearing3"/>
+  <child link="Shaft2"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+</joint>
+<transmission name="Shaft_Joint_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="Shaft_Joint">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="Shaft_Joint_actr">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<joint name="Bearing_Joint" type="fixed">
+  <origin xyz="-0.000198 -0.052835 0.000922" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="Bearing3"/>
+</joint>
+
+</robot>
